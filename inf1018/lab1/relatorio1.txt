@@ -1,2 +1,48 @@
 Ao rodar:
 gcc -Wall -o ex1 ex1.c
+./ex1 4.0
+Obtemos foo(4.00): 5.00 como sáida.
+
+Rodando apenas ./ex1 temos uso do programa: ./ex1 <valor float>.
+Isso ocorre pois se o número de argumentos for menor que 2, o programa
+tem como saída printf ("uso do programa: %s <valor float>\n", argv[0]);
+E retorna 0, encerrando o programa.
+
+Rodando apenas ex1, temos como resposta: bash: ex1:  command not found
+Pesquisando vi que o shell procura apenas nos diretórios listados numa 
+variável chamada PATH, lá existem pastas "oficiais" onde ficam os programas
+do sistema por motivos de segurança, como evitar que um programa malicioso
+com o nome de um comando comum seja executado sem perceber. O ./ especifíca 
+que queremos executar o arquivo no diretório que estamos.
+
+Dividindo o programa em dois arquivos, tanto pela copilação individual de labaux.c e
+ex2.c quanto fazendo a ligação direta dos dois objetos, após rodar:
+./ex2 4.0 obtemos: foo(4.0): 5.00
+
+Rodando gcc -Wall -o ex3 labaux.c ex3.c, sem ter o cabeça~lho de foo, recebemos
+algumas mensagens (warnings).
+Ao tentar rodar: ./ex3 4.0 obtemos: foo(4.00): 0.00
+Acredito que por chamar uma função que não foi definida no código, temos algum problema
+que o programa acaba interpretando errado a chamada da função e retornando 0.00
+
+Rodando:
+gcc -Wall -o ex4 dump.c ex4.c
+./ex4
+Obtemos:
+valor de c1: 1 -> na memória: 1 
+valor de c2: 49 -> na memória: 49 
+valor de i: 1 -> na memória: 1 0 0 0 
+valor de v: 1 -> na memória: 49 0 
+
+A função dump imprime cada byte da representação em memória de uma variável.
+O ponteiro p é convertido em um unsigned char *, que ocupa exatamente um byte
+e assim é usado para apontar para cada byte de uma variável.
+Já a variável inteira n, usada em while(--n), serve para rodar n vezes o laço,
+imprimindo o valor de cada byte.
+
+O tamanho ocupado vai depender do tipo de variável.
+variavéis tipo char ocupam 1 byte, variáveis tipo int ocupam 4 bytes.
+Outra coisa que podemos notar é que armazer 1 e '1' são coisas diferentes.
+'1' armazena o o byte de valor 49, número correspondendo na tabela ASCII para o caractere '1'.
+
+Os bytes são apresentados da esquerda para a direita.

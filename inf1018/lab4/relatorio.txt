@@ -1,0 +1,97 @@
+Questão 1
+Ao transformar char c = 150, temos que 150 em binário é: 1001 0110
+Que transformando para hexadecimal é 96
+Ao transformar short s = -3, -3 em binário:
+0000 0000 0000 0011 -> 1111 1111 1111 1100
+                       +                 1
+                       -------------------
+                       1111 1111 1111 1101
+
+Transformando para hexadecimal: 0xFFFD
+Ao transformar int i = -151, temos que -151 em binário é:
+0000 0000 0000 0000 0000 0000 1001 0111 -> 1111 1111 1111 1111 1111 1111 0110 1000
+                                           +                                     1
+                                           ---------------------------------------
+                                           1111 1111 1111 1111 1111 1111 0110 1001
+Em hexadecimal: 0xFFFFFF69
+Logo o dump fica:
+endereços
+--------- - 96
+--------- - fd
+--------- - ff
+--------- - 69
+--------- - ff
+--------- - ff
+--------- - ff
+
+Questão 2
+Transformando o short l = -32765
+0111 1111 1111 1101 -> 1000 0000 0000 0010
+                       +                 1
+                       --------------------
+                       1000 0000 0000 0011
+
+Em hexadecimal: 0x8003
+
+Transformando o short k = -32765
+1000 0000 0000 0011 -> 1000 0000 0000 0010
+                       +                 1
+                       --------------------
+                       1000 0000 0000 0011
+
+Em hexadecimal: 0x8003
+
+Logo, o dump é
+---------- - 03
+---------- - 80
+---------- - 03
+---------- - 80
+
+Questão 3
+Para obtermos nos bits menos significativos apenas o valor indicado pelo
+parâmetro da função fazemos o shift:
+word >> (8 * bytenum)
+Para "limparmos" o restante dos bytes fazemos a máscara:
+& (0xFF)
+No final, atribuindo isso a uma nova variável de retornando temos:
+int byte = (word >> (8 * bytenum)) & 0xFF;
+Agora para verificar o sinal e estender essa informação para os bits
+basta fazer um if (byte >> 7 == 1) então fazemos byte = byte | 0xFFFFFF00
+Isso fara que caso o bit mais significativo (que indica o sinal) for 1
+ele vai repetir o 1 em todos os outros bits para mantermos o sinal de negativo
+Caso contrário ele mantém os 0, que indica sinal positivo.
+
+Questão 4
+Ao rodar o primeiro código temos:
+x=-1, y=2
+x é menor do que y? sim
+Nesse caso as duas variáveis são do mesmo tipo (signed int), então
+ocorre a comparação lógica -1<2 que retorna True
+Ao rodar o segundo temos:
+x=-1, y=2
+x é menor do que y? nao
+Nesse caso, como as duas variáveis são unsigned int, o valor de x é :
+4.294.967.295 (2³² - 1), o maior valor que um unsigned int pode assumir
+Porém na hora da impressão, por não usarmos %u, a interpretação é de que
+ele é um signed int, logo fica -1.
+Rodando com %u:
+x=4294967295, y=2
+x é menor do que y? nao
+Rodando o programa 3, temos:
+x=-1, y=2
+x é menor do que y? nao
+Quando comparamos variáveis de tipos diferentes, elas são convertidas
+para o mesmo tipo, nesse caso foram convertidas para o tipo unsigned int
+logo a comparação foi 4294967295 < 2?
+
+Questão 5
+signed char sc = -1
+Em binário: 0000 0001 -> 1111 1110
+                         +       1
+                         ---------
+                         1111 1111
+
+Atribuindo o valor de sc no unsigned int, vamos replicar aos bits a esquerda
+o bit mais significativo, nesse caso o 1:
+1111 1111 1111 1111 1111 1111 1111 1111
+Em hexadecimal: 0xffffffff

@@ -1,0 +1,4 @@
+Para mantermos apenas o byte menos significativos precisamos fazer uma máscara:
+Ao realizar y = x & (0x000000FF)
+
+Já para man
