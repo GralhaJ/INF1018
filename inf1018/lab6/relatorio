@@ -1,0 +1,24 @@
+1-
+saída:
+10
+-21
+-30
+45
+
+%eax é usado como acumulador e incializado em 0 antes do llop
+dentro do loop addl  (%r12), %eax soma o elemento atual antes do
+ponteiro %r12 ser incrementado.
+
+2- 
+%eax é usado como acumulador, inicializando em 0 antes do loop.
+dentro do loop, addl  (%r12), %eax soma o elemento atual antes do
+ponteiro %r12 ser incrementado, garantindo que cada elemento seja 
+somado na ordem correta
+
+3- 
+fazemos uma cópia para não perder o valor de %eax com: movl %eax, %edx; andl $1, %edx
+
+4-
+agora o ponteiro %r12 avança 1 byte por vez ao invés de 4
+a leitura do elemento usa movsbl  (%r12), %eax, que estende o sinal
+do byte para preencher todo o %eax

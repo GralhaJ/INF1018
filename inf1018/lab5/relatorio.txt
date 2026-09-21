@@ -1,0 +1,187 @@
+1-
+int b[2] é um array de inteiros, acredito que deva ter
+8 bytes de memória armazenados de maneira sequencial.
+
+short a[2][3] é uma matriz de short, com 6 elementos ao
+todo, logo 6x2 = 12 bytes armazenados também de maneira
+sequencial, a11, a12, a13, a21, a22, a23.
+
+b: 
+0x7ffe80488834 - 00
+0x7ffe80488835 - 00
+0x7ffe80488836 - 00
+0x7ffe80488837 - 00
+0x7ffe80488838 - 01
+0x7ffe80488839 - 00
+0x7ffe8048883a - 00
+0x7ffe8048883b - 00
+a: 
+0x7ffe8048883c - 00
+0x7ffe8048883d - 00
+0x7ffe8048883e - 01
+0x7ffe8048883f - 00
+0x7ffe80488840 - 02
+0x7ffe80488841 - 00
+0x7ffe80488842 - 03
+0x7ffe80488843 - 00
+0x7ffe80488844 - 04
+0x7ffe80488845 - 00
+0x7ffe80488846 - 05
+0x7ffe80488847 - 00
+
+2-
+dump do struct X:
+0x57004c283010 - a4
+0x57004c283011 - a3
+0x57004c283012 - a2
+0x57004c283013 - a1
+0x57004c283014 - b2
+0x57004c283015 - b1
+0x57004c283016 - 00
+0x57004c283017 - 00
+0x57004c283018 - c4
+0x57004c283019 - c3
+0x57004c28301a - c2
+0x57004c28301b - c1
+
+O "buraco" é o padding de alinhamento que é inserido pelo
+próprio copilador:
+Um int (4 bytes) precisa estar em um endereço múltiplo de 4,
+enquanto um short (2 bytes) precisa estar em um endereço múltiplo
+de 2, para que c fique alinhado corretamente o copilador insere
+2 bytes de padding, empurrando c para o offset 8, que é múltiplo de 4.
+
+3-
+x1: 12 bytes
+x2: 16 bytes
+x3: 8 bytes
+x4: 24 bytes
+x5: 3 bytes
+x6: 16 bytes
+u1: 8 bytes
+u2: 6 bytes
+
+x1:
+0x5783faaca010 - c1
+0x5783faaca011 - 00
+0x5783faaca012 - 00
+0x5783faaca013 - 00
+0x5783faaca014 - 04
+0x5783faaca015 - 03
+0x5783faaca016 - 02
+0x5783faaca017 - 01
+0x5783faaca018 - c2
+0x5783faaca019 - 00
+0x5783faaca01a - 00
+0x5783faaca01b - 00
+
+x2:
+0x5783faaca020 - 08
+0x5783faaca021 - 07
+0x5783faaca022 - 06
+0x5783faaca023 - 05
+0x5783faaca024 - 04
+0x5783faaca025 - 03
+0x5783faaca026 - 02
+0x5783faaca027 - 01
+0x5783faaca028 - c1
+0x5783faaca029 - 00
+0x5783faaca02a - 00
+0x5783faaca02b - 00
+0x5783faaca02c - 00
+0x5783faaca02d - 00
+0x5783faaca02e - 00
+0x5783faaca02f - 00
+
+x3:
+0x5783faaca030 - 04
+0x5783faaca031 - 03
+0x5783faaca032 - 02
+0x5783faaca033 - 01
+0x5783faaca034 - c1
+0x5783faaca035 - c2
+0x5783faaca036 - 00
+0x5783faaca037 - 00
+
+x4:
+0x5783faaca040 - 08
+0x5783faaca041 - 07
+0x5783faaca042 - 06
+0x5783faaca043 - 05
+0x5783faaca044 - 04
+0x5783faaca045 - 03
+0x5783faaca046 - 02
+0x5783faaca047 - 01
+0x5783faaca048 - c1
+0x5783faaca049 - 00
+0x5783faaca04a - 00
+0x5783faaca04b - 00
+0x5783faaca04c - 00
+0x5783faaca04d - 00
+0x5783faaca04e - 00
+0x5783faaca04f - 00
+0x5783faaca050 - c2
+0x5783faaca051 - 00
+0x5783faaca052 - 00
+0x5783faaca053 - 00
+0x5783faaca054 - 00
+0x5783faaca055 - 00
+0x5783faaca056 - 00
+0x5783faaca057 - 00
+
+x5:
+0x5783faaca058 - c1
+0x5783faaca059 - c2
+0x5783faaca05a - c3
+
+x6:
+0x5783faaca060 - 02
+0x5783faaca061 - 01
+0x5783faaca062 - 00
+0x5783faaca063 - 00
+0x5783faaca064 - 04
+0x5783faaca065 - 03
+0x5783faaca066 - 02
+0x5783faaca067 - 01
+0x5783faaca068 - c1
+0x5783faaca069 - c2
+0x5783faaca06a - c3
+0x5783faaca06b - 00
+0x5783faaca06c - 02
+0x5783faaca06d - 01
+0x5783faaca06e - 00
+0x5783faaca06f - 00
+
+u1 (int)
+0x7ffe046e6400 - 04
+0x7ffe046e6401 - 03
+0x7ffe046e6402 - 02
+0x7ffe046e6403 - 01
+0x7ffe046e6404 - fe
+0x7ffe046e6405 - 7f
+0x7ffe046e6406 - 00
+0x7ffe046e6407 - 00
+u1 (char)
+0x7ffe046e6400 - cc
+0x7ffe046e6401 - cc
+0x7ffe046e6402 - cc
+0x7ffe046e6403 - cc
+0x7ffe046e6404 - cc
+0x7ffe046e6405 - 7f
+0x7ffe046e6406 - 00
+0x7ffe046e6407 - 00
+
+u2 (short)
+0x7ffe046e63fa - 02
+0x7ffe046e63fb - 01
+0x7ffe046e63fc - 5c
+0x7ffe046e63fd - 7d
+0x7ffe046e63fe - 00
+0x7ffe046e63ff - 00
+u2 (char)
+0x7ffe046e63fa - cc
+0x7ffe046e63fb - cc
+0x7ffe046e63fc - cc
+0x7ffe046e63fd - cc
+0x7ffe046e63fe - cc
+0x7ffe046e63ff - 00
